@@ -1,0 +1,47 @@
+@font-face {
+    font-family: bakh-bold;
+    src: url("./assets/Fonts/YekanBakh/YekanBakh-Bold/YekanBakh-Bold.woff");
+
+}
+
+@font-face {
+    font-family: bakh-fat;
+    src: url("./assets/Fonts/YekanBakh/YekanBakh-Fat/YekanBakh-Fat.woff");
+}
+
+@font-face {
+    font-family: bakh-heavy;
+    src: url("./assets/Fonts/YekanBakh/YekanBakh-Heavy/YekanBakh-Heavy.woff");
+}
+@font-face {
+    font-family: bakh-light;
+    src: url("./assets/Fonts/YekanBakh/YekanBakh-Light/YekanBakh-Light.woff");
+}
+@font-face {
+    font-family: bakh-medium;
+    src: url("./assets/Fonts/YekanBakh/YekanBakh-Medium/YekanBakh-Medium.woff");
+}
+@font-face {
+    font-family: bakh-reg;
+    src: url("./assets/Fonts/YekanBakh/YekanBakh-Regular/YekanBakh-Regular.woff");
+}
+
+.bakh-bold{
+    font-family:bakh-bold;
+}
+.bakh-fat{
+    font-family:bakh-fat;
+}
+.bakh-heavy{
+    font-family:bakh-heavy;
+}
+.bakh-light{
+    font-family:bakh-light;
+}
+
+.bakh-medium{
+    font-family:bakh-medium;
+}
+.bakh-reg{
+    font-family: bakh-reg;
+}
