@@ -5,8 +5,7 @@ import axios from "axios";
 export default function CreateMiddleBanner(){
     const {register , handleSubmit , watch ,formState:{errors}} = useForm({});
    
-    // const baseUrl = import.meta.env.VITE_BASE_URL;
-    // console.log(baseUrl)
+    
 
     const submitHandler =(e)=>{
         // e.preventDefault();
