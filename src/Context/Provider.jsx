@@ -1,15 +1,15 @@
-import MiddleBannerModal from "./MiddleBannerModal";
+import UiContextProvider from "./UiContextProvider";
 import SingleMiddleBannerData from "./http/SingleMiddleBannerData";
 
 
 export default function Provider({children}){
     return(
         <>
-            <MiddleBannerModal>
+            <UiContextProvider>
                 <SingleMiddleBannerData>
                     {children}
                 </SingleMiddleBannerData>
-            </MiddleBannerModal>
+            </UiContextProvider>
         </>
     );
 }

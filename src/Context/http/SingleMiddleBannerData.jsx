@@ -11,7 +11,8 @@ const SingleMiddleBannerContext = createContext();
 export default function SingleMiddleBannerData({children}){
     const [data , setData] = useState({});
     const [id , setId] = useState("");
-    const [open , setOpen] = useState(false)
+    const [open , setOpen] = useState(false);
+    const [refetch , setReFetch] = useState(false);
     console.log(baseUrl);
     
     useEffect(()=>{
@@ -23,14 +24,15 @@ export default function SingleMiddleBannerData({children}){
             console.log(res.data)
             setData(res.data.data)
             console.log(data);
+            setId(res.data.data._id);
         })
         .catch(e=>console.log(e));
     }
-    },[id , open]);
+    },[id , open , refetch]);
 
 
     return(
-        <SingleMiddleBannerContext.Provider value={{data , id , setId , open , setOpen}}>
+        <SingleMiddleBannerContext.Provider value={{data , id , setId , open , setOpen , refetch , setReFetch}}>
             {children}
         </SingleMiddleBannerContext.Provider>
     );

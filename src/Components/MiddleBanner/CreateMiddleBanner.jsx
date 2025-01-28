@@ -1,10 +1,10 @@
 import { useForm } from "react-hook-form";
 import axios from "axios";
-
+import { ToastContainer, toast } from 'react-toastify';
 
 export default function CreateMiddleBanner(){
-    const {register , handleSubmit , watch ,formState:{errors}} = useForm({});
-   
+    const { reset , register , handleSubmit , watch ,formState:{errors}} = useForm({});
+    const notify = toast();
     
 
     const submitHandler =(e)=>{
@@ -16,7 +16,18 @@ export default function CreateMiddleBanner(){
             link:watch('link'),
         };
         axios.post(`http://127.0.0.1:4000/api/new-middlebanner`,formData)
-        .then(res=>console.log(res))
+        .then(res=>{
+            console.log(res)
+            if(res && res.status==200){
+                toast.success('بنر با موفقیت ذخیره شد')
+                reset();
+
+
+            }else{
+             
+                toast.warning("خطا در ذخیره بنر")
+            }
+        })
         .catch(e=>{
             console.log(formData);
             console.log(e);
@@ -28,6 +39,7 @@ export default function CreateMiddleBanner(){
     return(
         <div className="w-full">
             <form onSubmit={handleSubmit(submitHandler)} className="w-full bg-white p-5 rounded-xl flex flex-col gap-4 bakh-reg">
+               <ToastContainer className={"bakh-fat text-red-600"}/>
                 <div className="flex flex-col gap-3 ">
                     <label htmlFor="" className="text-sm">   
                         آدرس تصویر             
@@ -114,6 +126,9 @@ export default function CreateMiddleBanner(){
                 </div>
                     
             </form>
+            <button onClick={notify}>
+                    Click
+            </button>
         </div>
     );
 }

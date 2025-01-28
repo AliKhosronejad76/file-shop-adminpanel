@@ -1,88 +1,71 @@
 import { useState , useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useGetSingleMiddleBanner } from "../../Context/http/SingleMiddleBannerData";
 import { baseUrl } from "../../api/api";
 import { FaTimes } from "react-icons/fa";
 import axios from "axios";
 import { toast , ToastContainer } from "react-toastify";
 import { useUiContext } from "../../Context/UiContextProvider";
 
-export default function UpdateBannerModal({display , setDisplay , banner ,setReload}){
-     
+
+
+export default function UpdateModal({ setReload , selectedItemId }){
     const notify = toast();
-    const {show , setShow} = useUiContext();
-    const {data , setId , id , open , reFetch , setReFetch} = useGetSingleMiddleBanner();
-    const [msg , setMsg] = useState("");
-    const [defaultValue , setDefaultValue] = useState({
-        image:data?.image,
-        imageAlt:data?.imageAlt,
-        link:data?.link,
-        situation:data?.situation,
-    });
+    const {mainsliderUpdateModal , setMainSliderUpdateModal} = useUiContext();
+    const [defaultValue , setDefaultValue]= useState({});
+
     useEffect(()=>{
-        setReFetch(false)
-        errors.image=false
-        errors.imageAlt=false;
-        errors.link=false;
-        errors.situation=false;
-        setDefaultValue({
-            image:data?.image,
-            imageAlt:data?.imageAlt,
-            link:data?.link,
-            situation:data?.situation,
-        });
-
-
-
-    },[open]);
-   
+        axios.get(`${baseUrl}/single-main-slider-item/${selectedItemId}`)
+        .then(res=>{
+            setDefaultValue(res.data.data);
+        }).catch(e=>{
+            console.log(e)
+        })
+    },[mainsliderUpdateModal]);
 
     const {register , handleSubmit , watch ,formState:{errors}} = useForm({
         values:{
-            image:defaultValue.image,
-            imageAlt:defaultValue.imageAlt,
-            link:defaultValue.link,
-            situation:defaultValue.situation,
+            image:defaultValue?.image,
+            imageAlt:defaultValue?.imageAlt,
+            link:defaultValue?.link,
+            situation:defaultValue?.situation,
         },
  
     });
-   
+
     const submitHandler = (e)=>{
         // e.preventDefault();
         const formData = {
-            goalId:id ,
-            image:watch('image',data?.image),
-            imageAlt:watch('imageAlt',data?.imageAlt),
-            situation:watch('situation',data?.situation),
-            link:watch('link',data?.link),
+            goalId:selectedItemId,
+            image:watch('image'),
+            imageAlt:watch('imageAlt'),
+            situation:watch('situation'),
+            link:watch('link'),
         };
         console.log(register);
-        axios.patch(`${baseUrl}/update-middle-banner`,formData)
+        axios.patch(`${baseUrl}/update-main-slider-item`,formData)
         .then(res=>{
             console.log(res);
-            if(res?.status === 200){
-           
-                setReFetch(true);
+            if(res?.status === 200){    
                 setReload(true);
                 toast.success("به روز رسانی با موفقیت انجام شد")
-            }else if(res?.status=== 400){
-                setMsg("خطا در به روزرسانی")
-                setReFetch(false);
+            }else if(res?.status === 400){
+                toast.warning("مشکل در به روز رسانی اطلاعات")
+                
+                setReload(false);
             }else{
-                setMsg("");
-                setReFetch(false);               
+                toast.error("خطا")
+                setReload(false);               
             }
             
         }).catch(err=>console.log(err))
     } 
 
     const displayHandler = ()=>{
-        setShow(false);
+        setMainSliderUpdateModal(false);
     }
 
-   
     return(
-        <div className={`fixed z-[110] w-full h-full flex items-center justify-center top-0 left-0 right-0 bottom-0 bg-[rgba(0,0,0,.81)] ${show ? "opacity-100 visible":"opacity-0 invisible"}`}>
+        <div className={`fixed z-[110] w-full h-full flex items-center justify-center top-0 left-0 right-0 bottom-0 bg-[rgba(0,0,0,.81)] ${mainsliderUpdateModal ? "opacity-100 visible":"opacity-0 invisible"}`}>
             <ToastContainer/>
             <div className={`bg-white absolute w-[80%] h-[90%]  rounded-2xl p-3 `}>
             
@@ -91,7 +74,7 @@ export default function UpdateBannerModal({display , setDisplay , banner ,setRel
                         <FaTimes className="text-gray-600 text-2xl"/>
                     </div>
                 </div>
-                <p className={`text-base text-rose-500 text-center bakh-light`}>{msg}</p>
+
                 
                 <form onSubmit={handleSubmit(submitHandler)} className="w-full  p-5 rounded-xl flex flex-col gap-4 bakh-reg">
                     <div className="flex flex-col gap-3 ">
@@ -107,7 +90,7 @@ export default function UpdateBannerModal({display , setDisplay , banner ,setRel
                                 
                             })
                             }
-                            defaultValue={data?.image}
+                            defaultValue={defaultValue?.image}
 
                             type="text"
                             className="h-11 outline-none px-2 border border-zinc-400 rounded-full" />
@@ -130,7 +113,7 @@ export default function UpdateBannerModal({display , setDisplay , banner ,setRel
                             ...register("imageAlt", { required: true })
                             }
 
-                            defaultValue={data?.imageAlt}
+                            defaultValue={defaultValue?.imageAlt}
                            
                             type="text"
                             className="h-11 outline-none px-2 border border-zinc-400 rounded-full" />
@@ -156,7 +139,7 @@ export default function UpdateBannerModal({display , setDisplay , banner ,setRel
                                 minLength: 11,
                             })
                             }
-                            defaultValue={data?.link}
+                            defaultValue={defaultValue?.link}
                             
                             name="link"
                             type="text"

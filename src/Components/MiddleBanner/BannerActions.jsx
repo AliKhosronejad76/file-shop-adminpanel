@@ -1,14 +1,19 @@
 import { IoEyeOff } from "react-icons/io5";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { RxUpdate } from "react-icons/rx";
-import { useMiddleBannerUpdateModal } from "../../Context/MiddleBannerModal";
+import { useUiContext } from "../../Context/UiContextProvider";
 import { useGetSingleMiddleBanner } from "../../Context/http/SingleMiddleBannerData";
 import axios from "axios";
+import { useEffect } from "react";
 
 
 export default function BannerActions({ display , bannerId , setDisplay }){
-    const {setShow , setDeleteBox} = useMiddleBannerUpdateModal();
+    const {setShow , setDeleteBox} = useUiContext();
     const {setId , open , setOpen} = useGetSingleMiddleBanner();
+    useEffect(()=>{
+        setId(bannerId);
+    },[display])
+    
     const getUpdateBanner = ()=>{
         setShow(true);
         setId(bannerId);

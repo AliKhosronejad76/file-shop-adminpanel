@@ -23,3 +23,7 @@ a{
 button{
   font-family:bakh-light;
 }
+
+.Toastify__toast{
+   font-family: bakh-medium;
+}
