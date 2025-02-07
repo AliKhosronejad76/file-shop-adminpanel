@@ -68,7 +68,7 @@ export default function UpdateModal({ setReload , selectedItemId }){
         <div className={`fixed z-[110] w-full h-full flex items-center justify-center top-0 left-0 right-0 bottom-0 bg-[rgba(0,0,0,.81)] ${mainsliderUpdateModal ? "opacity-100 visible":"opacity-0 invisible"}`}>
             <ToastContainer/>
             <div className={`bg-white absolute w-[80%] h-[90%]  rounded-2xl p-3 `}>
-            
+           
                 <div onClick={()=>displayHandler()} className="w-full flex justify-end px-6 py-2">
                     <div className="cursor-pointer">
                         <FaTimes className="text-gray-600 text-2xl"/>

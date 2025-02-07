@@ -4,7 +4,7 @@ import { ToastContainer , toast } from "react-toastify";
 import axios from "axios";
 import { baseUrl } from "../../api/api";
 
-export default function DeleteModal({ setReload ,slide, selectedItemId}){
+export default function DeleteModal({ setReload ,slide , selectedItemId}){
     const {mainSliderDeleteModal , setMainSliderDeleteModal} = useUiContext()
     const [data , setData] = useState({});
     const notify = toast();
@@ -20,7 +20,7 @@ export default function DeleteModal({ setReload ,slide, selectedItemId}){
         }).catch(err=>{
             console.log(err);
         })
-    },[mainSliderDeleteModal]);
+    },[mainSliderDeleteModal , selectedItemId ]);
 
     const deleteHandler = ()=>{
           axios.post(`${baseUrl}/delete-main-slider-item`,{goalId:selectedItemId})
@@ -49,7 +49,7 @@ export default function DeleteModal({ setReload ,slide, selectedItemId}){
                     />
                     <p>{data?.imageAlt}</p>
                     <p>{data?._id}</p>
-                    <p className="text-rose-700">{slide?._id}</p>
+                    <p className="text-rose-700">{data?._id}</p>
                 </div>
 
 

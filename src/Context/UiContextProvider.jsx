@@ -8,7 +8,12 @@ export default function UiContextProvider({children}){
     const [deleteBox , setDeleteBox] = useState(false);
     const [mainsliderUpdateModal , setMainSliderUpdateModal] = useState(false);
     const [mainSliderDeleteModal  , setMainSliderDeleteModal] = useState(false);
-   
+    const [articleDeleteModal , setArticleDeleteModal] = useState(false);
+    const [articleUpdateModal , setArticleUpdateModal] = useState(false);
+    
+
+
+
     return(
         <UiContext.Provider value={{ 
             show ,
@@ -19,10 +24,15 @@ export default function UiContextProvider({children}){
             setMainSliderUpdateModal ,
             mainSliderDeleteModal,
             setMainSliderDeleteModal,
+            articleDeleteModal,
+            setArticleDeleteModal,
+            articleUpdateModal,
+            setArticleUpdateModal,
            
+              
             }}>
 
-        {children}
+            {children}
         </UiContext.Provider>
     );
 
